@@ -13,15 +13,23 @@
         </template>
       </v-menu>
     </v-app-bar>
+    <v-main>
+      <router-view />
+    </v-main>
 
-    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+    <v-navigation-drawer v-model="drawer">
       <v-list nav dense>
         <v-list-item-group
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item>
-            <v-list-item-title>Create Team</v-list-item-title>
+          <v-list-item link>
+            <v-list-item-title
+              @click="goToCreateTeam"
+              align="right"
+              class="font-weight-bold"
+              >Create Team</v-list-item-title
+            >
           </v-list-item>
 
           <v-list-item>
@@ -34,11 +42,23 @@
 </template>
 
 <script>
+import CreateTeam from "./components/CreateTeam.vue";
 export default {
+  name: "App",
+  components: {
+    CreateTeam,
+  },
   data: () => ({
     drawer: false,
     group: null,
   }),
+
+  methods: {
+    goToCreateTeam() {
+      this.$router.push("/createteam");
+      this.drawer = false;
+    },
+  },
 
   watch: {
     group() {
