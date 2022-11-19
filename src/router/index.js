@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import CreateTeam from "../components/CreateTeam.vue";
+import CreatePlayer from "../components/CreatePlayer.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/createteam",
       name: "createteam",
       component: CreateTeam,
+    },
+    {
+      path: "/createplayer",
+      name: "createplayer",
+      component: CreatePlayer,
     },
     {
       path: "/about",

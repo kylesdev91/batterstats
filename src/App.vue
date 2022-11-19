@@ -32,8 +32,13 @@
             >
           </v-list-item>
 
-          <v-list-item>
-            <v-list-item-title>Create Line Up</v-list-item-title>
+          <v-list-item link>
+            <v-list-item-title
+              @click="goToCreatePlayer"
+              align="right"
+              class="font-weight-bold"
+              >Create Line Up</v-list-item-title
+            >
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -56,6 +61,10 @@ export default {
   methods: {
     goToCreateTeam() {
       this.$router.push("/createteam");
+      this.drawer = false;
+    },
+    goToCreatePlayer() {
+      this.$router.push("/createplayer");
       this.drawer = false;
     },
   },
