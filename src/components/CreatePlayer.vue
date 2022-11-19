@@ -13,7 +13,7 @@ const sort = ref(false);
 
 const CreateUser = () => {
   if (!user_input.value.player) {
-    return alert("Please enter a Player");
+    return alert("Please enter a player");
   }
   user_store.create(user_input.value);
   user_input.value = {
@@ -31,40 +31,33 @@ const DeletePlayer = (id) => {
     <form @submit.prevent="CreateUser">
       <h2 class="text-center">Player</h2>
 
-      <v-row class="my-10">
-        <v-col cols="6">
-          <v-text-field
-            hide-details="auto"
-            label="Player"
-            v-model="user_input.player"
-          ></v-text-field>
-        </v-col>
-        <v-row align="center">
-          <v-btn
-            class="mx-4"
-            color="blue"
-            variant="tonal"
-            type="submit"
-            value="Create"
-            >Create</v-btn
-          >
-        </v-row>
+      <v-responsive class="mx-auto" max-width="344">
+        <v-text-field label="Player" v-model="user_input.player"></v-text-field>
+      </v-responsive>
+
+      <v-row align="center">
+        <v-btn
+          color="blue"
+          variant="tonal"
+          type="submit"
+          value="Create"
+          class="mx-auto"
+          >Create</v-btn
+        >
       </v-row>
     </form>
-    <v-simple-table fixed-header fill-height="300px" class="my-15">
-      <thead>
-        <tr>
-          <th><p>Player</p></th>
-        </tr>
-      </thead>
-    </v-simple-table>
 
-    <div class="users" v-if="!sort">
+    <div class="users" v-if="!user_input.create">
       <div v-for="user in user_store.users" class="user">
-        <h2 class="text-left">{{ user.player }}</h2>
+        <v-simple-table fixed-header fill-height="300px" class="my-14">
+          <thead>
+            <th v-if="user_input.create"></th>
+          </thead>
+        </v-simple-table>
+        <p align="center">Player:</p>
+        <h2 class="text-center">{{ user.player }}</h2>
         <div class="text-center">
-          <v-row></v-row>
-          <v-col cols="12" sm="12" class="mx-12">
+          <v-responsive class="mx-auto" max-width="344">
             <v-btn
               class="delete"
               color="red"
@@ -73,14 +66,14 @@ const DeletePlayer = (id) => {
               @click="DeletePlayer(user.id)"
               >Delete</v-btn
             >
-          </v-col>
+          </v-responsive>
         </div>
       </div>
     </div>
 
     <div class="users" v-else>
       <div v-for="user in user_store.usersByName" class="user">
-         <h3>{{ user.player }}</h3>
+        <h3>{{ user.player }}</h3>
       </div>
     </div>
   </main>
