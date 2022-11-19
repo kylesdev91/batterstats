@@ -12,8 +12,8 @@ const user_input = ref({
 const sort = ref(false);
 
 const CreateUser = () => {
-  if (!user_input.value.name || !user_input.value.team) {
-    return alert("Please enter both name and team");
+  if (!user_input.value.team) {
+    return alert("Please enter a team");
   }
   user_store.create(user_input.value);
   user_input.value = {
@@ -22,41 +22,31 @@ const CreateUser = () => {
   };
 };
 
-const DeleteUser = (id) => {
+const DeleteTeam = (id) => {
   user_store.delete(id);
-  alert("User Deleted with id: " + id);
+  alert("Team Deleted");
 };
 </script>
 
 <template>
   <main>
-    <h1>Team Manager</h1>
-
     <form @submit.prevent="CreateUser">
-      <input type="text" placeholder="Player Name" v-model="user_input.name" />
-      <input
-        type="team"
-        placeholder="Team Name"
-        v-model="user_input.team"
-      />
-      <input type="submit" value="Create Player" />
+      <v-text-field label="Team Name" v-model="user_input.team"></v-text-field>
+      <v-btn variant="tonal" type="submit" value="Create"> Create Team </v-btn>
+       <v-btn rounded color="green" type="submit" value="Create Team" icon><v-icon large>mdi-location-enter</v-icon></v-btn>
     </form>
 
     <div class="users" v-if="!sort">
       <div v-for="user in user_store.users" class="user">
-        <div>ID: {{ user.id }}</div>
-        <h3>{{ user.name }}</h3>
-        <p>{{ user.team }}</p>
-        <button @click="DeleteUser(user.id)">Delete</button>
+        <h3>{{ user.team }}</h3>
+        <v-btn @click="DeleteTeam(user.id)">Delete</v-btn>
+        <v-btn @click="DeleteTeam(user.id)" class="mr-4" rounded color="red" icon><v-icon>mdi-delete-circle-outline</v-icon></v-btn>  
       </div>
     </div>
 
     <div class="users" v-else>
       <div v-for="user in user_store.usersByName" class="user">
-        <div>ID: {{ user.id }}</div>
-        <h3>{{ user.name }}</h3>
-        <p>{{ user.team }}</p>
-        <button @click="DeleteUser(user.id)">Delete Player</button>
+        <h3>{{ user.team }}</h3>
       </div>
     </div>
   </main>
