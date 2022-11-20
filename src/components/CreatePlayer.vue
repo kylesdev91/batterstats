@@ -8,7 +8,6 @@ const user_input = ref({
   player: "",
 });
 
-
 const CreatePlayer = () => {
   if (!user_input.value.player) {
     return alert("Please enter a player");
@@ -27,22 +26,27 @@ const DeletePlayer = (id) => {
 <template>
   <main>
     <form @submit.prevent="CreatePlayer">
-      <h2 class="text-center">Player</h2>
+      <v-card class="mx-auto" max-width="344" title="Player Registration">
+        <v-text-field
+          label="Enter a player"
+          persistent-hint
+          variant="outlined"
+          v-model="user_input.team"
+        ></v-text-field>
+      </v-card>
 
-      <v-responsive class="mx-auto" max-width="344">
-        <v-text-field label="Player" v-model="user_input.player"></v-text-field>
-      </v-responsive>
-
-      <v-row align="center">
-        <v-btn
-          color="blue"
-          variant="tonal"
-          type="submit"
-          value="Create"
-          class="mx-auto"
-          >Create</v-btn
-        >
-      </v-row>
+      <v-col>
+        <v-row>
+          <v-btn
+            color="blue"
+            variant="tonal"
+            type="submit"
+            value="Create"
+            class="mx-auto"
+            >Create</v-btn
+          >
+        </v-row>
+      </v-col>
     </form>
 
     <div class="players" v-if="!user_input.create">

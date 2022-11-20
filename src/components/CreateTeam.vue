@@ -26,14 +26,17 @@ const DeleteTeam = (id) => {
 <template>
   <main>
     <form @submit.prevent="CreateTeam">
-      <h2 class="text-center">Team</h2>
-
-      <v-responsive class="mx-auto" max-width="344">
-        <v-text-field label="Team" v-model="user_input.team"></v-text-field>
-      </v-responsive>
-
-      <v-row align="center">
-        <v-btn
+      <v-card class="mx-auto" max-width="332" title="Team Registration">
+        <v-text-field
+          label="Enter a team"
+          persistent-hint
+          variant="outlined"
+          v-model="user_input.team"
+        ></v-text-field>
+      </v-card>
+      <v-col>
+        <v-row>
+          <v-btn
           color="blue"
           variant="tonal"
           type="submit"
@@ -41,7 +44,8 @@ const DeleteTeam = (id) => {
           class="mx-auto"
           >Create</v-btn
         >
-      </v-row>
+        </v-row>
+      </v-col>
     </form>
 
     <div class="teams" v-if="!user_input.create">
