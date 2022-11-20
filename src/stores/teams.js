@@ -18,12 +18,4 @@ export const useTeamStore = defineStore("teams", {
         this.teams = this.teams.filter(team => team.id !== id)
       }
     },
-    getters: {
-        teamsByName (state) {
-            const sortable = [...state.teams]
-            return sortable.sort((a, b) => {
-              return a.name.localeCompare(b.name)
-            }) 
-        }
-    }
 })
