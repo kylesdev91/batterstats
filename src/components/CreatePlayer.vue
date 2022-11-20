@@ -18,20 +18,20 @@ const CreatePlayer = () => {
   };
 };
 
-const DeletePlayer = () => {
-  player_store.delete;
+const DeletePlayer = (id) => {
+  player_store.delete(id);
 };
 </script>
 
 <template>
   <main>
     <form @submit.prevent="CreatePlayer">
-      <v-card class="mx-auto" max-width="344" title="Player Registration">
+      <v-card class="mx-auto" max-width="332" title="Player Registration">
         <v-text-field
           label="Enter a player"
           persistent-hint
           variant="outlined"
-          v-model="user_input.team"
+          v-model="user_input.player"
         ></v-text-field>
       </v-card>
 
@@ -65,7 +65,7 @@ const DeletePlayer = () => {
               color="red"
               variant="tonal"
               value="Delete"
-              @click="DeletePlayer(user)"
+              @click="DeletePlayer(user.id)"
               >Delete</v-btn
             >
           </v-responsive>
