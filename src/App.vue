@@ -47,12 +47,8 @@
 </template>
 
 <script>
-import CreateTeam from "./components/CreateTeam.vue";
 export default {
   name: "App",
-  components: {
-    CreateTeam,
-  },
   data: () => ({
     drawer: false,
     group: null,
