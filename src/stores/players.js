@@ -1,26 +1,26 @@
 import { defineStore } from "pinia";
 import { v4 as uuid } from "uuid";
 
-export const useUserStore = defineStore("users", {
+export const usePlayerStore = defineStore("players", {
     state: () => {
       return {
-        users: [],
+        players: [],
       }
     },
     actions: {
-      create(user) {
-        this.users.push({
+      create(player) {
+        this.players.push({
             id: uuid(),
-           ...user,
+           ...player,
         })
       },
       delete (id) {
-        this.users = this.users.filter(user => user.id !== id)
+        this.players = this.players.filter(player => player.id !== id)
       }
     },
     getters: {
-        usersByName (state) {
-            const sortable = [...state.users]
+        playersByName (state) {
+            const sortable = [...state.players]
             return sortable.sort((a, b) => {
               return a.name.localeCompare(b.name)
             }) 

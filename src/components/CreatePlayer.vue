@@ -1,34 +1,33 @@
 <script setup>
-import { useUserStore } from "../stores/users";
+import { usePlayerStore } from "../stores/players";
 import { ref } from "vue";
 
-const user_store = useUserStore();
+const player_store = usePlayerStore();
 
 const user_input = ref({
-  name: "",
   player: "",
 });
 
 const sort = ref(false);
 
-const CreateUser = () => {
+const CreatePlayer = () => {
   if (!user_input.value.player) {
     return alert("Please enter a player");
   }
-  user_store.create(user_input.value);
+  player_store.create(user_input.value);
   user_input.value = {
     player: "",
   };
 };
 
 const DeletePlayer = (id) => {
-  user_store.delete(id);
+  player_store.delete(id);
 };
 </script>
 
 <template>
   <main>
-    <form @submit.prevent="CreateUser">
+    <form @submit.prevent="CreatePlayer">
       <h2 class="text-center">Player</h2>
 
       <v-responsive class="mx-auto" max-width="344">
@@ -47,8 +46,8 @@ const DeletePlayer = (id) => {
       </v-row>
     </form>
 
-    <div class="users" v-if="!user_input.create">
-      <div v-for="user in user_store.users" class="user">
+    <div class="players" v-if="!user_input.create">
+      <div v-for="user in player_store.players" class="user">
         <v-simple-table fixed-header fill-height="300px" class="my-14">
           <thead>
             <th v-if="user_input.create"></th>
@@ -71,8 +70,8 @@ const DeletePlayer = (id) => {
       </div>
     </div>
 
-    <div class="users" v-else>
-      <div v-for="user in user_store.usersByName" class="user">
+    <div class="players" v-else>
+      <div v-for="user in player_store.playersByName" class="user">
         <h3>{{ user.player }}</h3>
       </div>
     </div>
