@@ -8,7 +8,6 @@ const user_input = ref({
   player: "",
 });
 
-const sort = ref(false);
 
 const CreatePlayer = () => {
   if (!user_input.value.player) {
