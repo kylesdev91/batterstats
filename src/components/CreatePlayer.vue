@@ -18,8 +18,8 @@ const CreatePlayer = () => {
   };
 };
 
-const DeletePlayer = (id) => {
-  player_store.delete(id);
+const DeletePlayer = () => {
+  player_store.delete;
 };
 </script>
 
@@ -65,7 +65,7 @@ const DeletePlayer = (id) => {
               color="red"
               variant="tonal"
               value="Delete"
-              @click="DeletePlayer(user.id)"
+              @click="DeletePlayer(user)"
               >Delete</v-btn
             >
           </v-responsive>

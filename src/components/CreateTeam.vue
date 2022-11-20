@@ -18,8 +18,8 @@ const CreateTeam = () => {
   };
 };
 
-const DeleteTeam = (id) => {
-  team_store.delete(id);
+const DeleteTeam = () => {
+  team_store.delete;
 };
 </script>
 
@@ -58,13 +58,13 @@ const DeleteTeam = (id) => {
         <p align="center">Team:</p>
         <h2 align="center">{{ user.team }}</h2>
         <div class="text-center">
-          <v-responsive class="mx-auto" max-width="344">
+          <v-responsive class="mx-auto" max-wth="344">
             <v-btn
               class="delete"
               color="red"
               variant="tonal"
               value="Delete"
-              @click="DeleteTeam(user.id)"
+              @click="DeleteTeam(user)"
               >Delete</v-btn
             >
           </v-responsive>
