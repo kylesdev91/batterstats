@@ -22,68 +22,58 @@ const DeletePlayer = (id) => {
   player_store.delete(id);
 };
 </script>
-
 <template>
-  <main>
-    <v-col></v-col>
-    <form @submit.prevent="CreatePlayer">
-      <v-card class="mx-auto" max-width="330" title="Player Registration">
-        <v-responsive class="mx-auto" max-width="330">
-          <v-col>
-            <v-text-field
-              label="Enter a player"
-              persistent-hint
-              variant="outlined"
-              v-model="user_input.player"
-            ></v-text-field>
-          </v-col>
-        </v-responsive>
-      </v-card>
+  <v-card
+    class="mx-auto ma-10 px-6 py-8"
+    max-width="344"
+    title="Player Registration "
+  >
+    <v-row justify="center">
+      <v-text-field
+        label="Enter a player"
+        persistent-hint
+        variant="outlined"
+        v-model="user_input.player"
+      ></v-text-field>
+    </v-row>
+    <v-row justify="center">
+      <v-btn
+        color="blue"
+        variant="tonal"
+        type="submit"
+        value="Create"
+        class="mx-100"
+        @click.prevent="CreatePlayer"
+        >Create</v-btn
+      >
+    </v-row>
+  </v-card>
 
-      <v-col>
-        <v-row>
-          <v-responsive class="mx-auto" max-width="100">
-            <v-btn
-              color="blue"
-              variant="tonal"
-              type="submit"
-              value="Create"
-              class="my-6"
-              >Create</v-btn
-            >
-            </v-responsive>
-        </v-row>
-      </v-col>
-    </form>
-
-    <div class="players" v-if="!user_input.create">
-      <div v-for="user in player_store.players" class="user">
-        <v-simple-table fixed-header fill-height="300px" class="my-14">
-          <thead>
-            <th v-if="user_input.create"></th>
-          </thead>
-        </v-simple-table>
-        <p align="center">Player:</p>
-        <h2 class="text-center">{{ user.player }}</h2>
-        <div class="text-center">
-          <v-responsive class="mx-auto" max-width="344">
-            <v-btn
-              class="delete"
-              color="red"
-              variant="tonal"
-              value="Delete"
-              @click="DeletePlayer(user.id)"
-              >Delete</v-btn
-            >
-          </v-responsive>
-        </div>
+  <div  v-if="!user_input.create">
+    <div v-for="user in player_store.players" class="user">
+      <v-simple-table fixed-header fill-height="300px" class="my-14">
+        <thead>
+          <th v-if="user_input.create"></th>
+        </thead>
+      </v-simple-table>
+      <p align="center">Player:</p>
+      <h2 class="text-center">{{ user.player }}</h2>
+      <div class="text-center">
+          <v-btn
+            class="delete"
+            color="red"
+            variant="tonal"
+            value="Delete"
+            @click="DeletePlayer(user.id)"
+            >Delete</v-btn
+          >
       </div>
     </div>
+  </div>
 
-    <div class="players" v-else>
-      <div v-for="user in player_store.playersByName" class="user">
-        <h3>{{ user.player }}</h3>
-      </div>
+  <div class="players" v-else>
+    <div v-for="user in player_store.playersByName" class="user">
+      <h3>{{ user.player }}</h3>
     </div>
-  </main>
+  </div>
 </template>
