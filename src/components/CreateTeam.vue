@@ -50,16 +50,20 @@ const DeleteTeam = (id) => {
     </v-row>
   </v-card>
 
+  <v-table>
+    <thead>
+      <tr>
+        <th class="text-left">Team</th>
+      </tr>
+    </thead>
+  </v-table>
+
   <div v-if="team_store.teams">
     <div v-for="user in team_store.teams" class="user">
-      <v-simple-table fixed-header fill-height="330px" class="my-12">
-        <thead>
-          <th v-if="user_input.create"></th>
-        </thead>
-      </v-simple-table>
-      <p align="center">Team:</p>
-      <h2 align="center">{{ user.team }}</h2>
+      <th v-if="user_input.create"></th>
+      <h2 align="left" class="mx-5">{{ user.team }}</h2>
       <div class="text-center">
+        <v-row></v-row>
         <v-btn
           class="delete"
           color="red"

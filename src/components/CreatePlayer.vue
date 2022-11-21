@@ -49,24 +49,28 @@ const DeletePlayer = (id) => {
     </v-row>
   </v-card>
 
-  <div  v-if="!user_input.create">
+  <v-table>
+    <thead>
+      <tr>
+        <th class="text-left">Player</th>
+      </tr>
+    </thead>
+  </v-table>
+
+  <div v-if="player_store.players">
     <div v-for="user in player_store.players" class="user">
-      <v-simple-table fixed-header fill-height="300px" class="my-14">
-        <thead>
-          <th v-if="user_input.create"></th>
-        </thead>
-      </v-simple-table>
-      <p align="center">Player:</p>
-      <h2 class="text-center">{{ user.player }}</h2>
+      <th v-if="user_input.create"></th>
+      <h2 align="left" class="mx-5">{{ user.player }}</h2>
       <div class="text-center">
-          <v-btn
-            class="delete"
-            color="red"
-            variant="tonal"
-            value="Delete"
-            @click="DeletePlayer(user.id)"
-            >Delete</v-btn
-          >
+        <v-row></v-row>
+        <v-btn
+          class="delete"
+          color="red"
+          variant="tonal"
+          value="Delete"
+          @click="DeletePlayer(user.id)"
+          >Delete</v-btn
+        >
       </div>
     </div>
   </div>
