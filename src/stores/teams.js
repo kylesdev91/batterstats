@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 export const useTeamStore = defineStore("teams", {
     state: () => {
       return {
-        teams: [],
+        teams: [{id: 1, team:'Bombers'}],
       }
     },
     actions: {

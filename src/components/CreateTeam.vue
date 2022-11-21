@@ -4,22 +4,29 @@ import { ref } from "vue";
 
 const team_store = useTeamStore();
 
-const user_input = ref({
+const team_input = ref({
   team: "",
 });
 
+const dialogDelete = ref(false);
+
 const CreateTeam = () => {
-  if (!user_input.value.team) {
+  if (!team_input.value.team) {
     return alert("Please enter a team");
   }
-  team_store.create(user_input.value);
-  user_input.value = {
+  team_store.create(team_input.value);
+
+  team_input.value = {
     team: "",
   };
 };
 
 const DeleteTeam = (id) => {
   team_store.delete(id);
+};
+
+const LogTeam = () => {
+  console.log("here");
 };
 </script>
 
@@ -34,7 +41,7 @@ const DeleteTeam = (id) => {
         label="Enter a team"
         persistent-hint
         variant="outlined"
-        v-model="user_input.team"
+        v-model="team_input.team"
       ></v-text-field>
     </v-row>
     <v-row justify="center">
@@ -48,35 +55,51 @@ const DeleteTeam = (id) => {
         >Create</v-btn
       >
     </v-row>
-    <v-table>
-      <thead>
-        <tr>
-          <th class="text-left">Team</th>
-        </tr>
-      </thead>
-    </v-table>
 
     <div v-if="team_store.teams">
-      <div v-for="user in team_store.teams" class="user">
-        <th v-if="user_input.create"></th>
-        <p align="left" class="mx-5">{{ user.team }}</p>
+      <v-table>
+        <thead>
+          <tr>
+            <th class="text-left">Team</th>
+          </tr>
+        </thead>
+      </v-table>
+      <div v-for="team in team_store.teams" class="team">
+        <th v-if="team_input.create"></th>
+        <p align="left" class="mx-5">{{ team.team }}</p>
         <div class="text-center">
           <v-row></v-row>
-          <v-icon
-            class="delete"
-            color="red"
-            variant="tonal"
-            value="Delete"
-            @click="DeleteTeam(user.id)"
-            >mdi-delete
-          </v-icon>
-        </div>
-      </div>
-    </div>
+          <div class="text-center">
+            <v-icon
+              class="delete"
+              color="red"
+              variant="tonal"
+              value="Delete"
+              @click="dialog = true"
+              >mdi-delete
+            </v-icon>
 
-    <div class="teams" v-else>
-      <div v-for="user in team_store.teamsByName" class="user">
-        <h3>{{ user.team }}</h3>
+            <v-dialog v-model="dialog">
+              <v-card>
+                <v-card-text>
+                  Are you sure you want to delete team? This change cannot be
+                  undone.
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-btn color="blue" block @click="dialog = false"
+                    >Cancel</v-btn
+                  >
+                </v-card-actions>
+                <v-card-actions>
+                  <v-btn color="error" block @click="DeleteTeam(team.id)"
+                    >Delete</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+        </div>
       </div>
     </div>
   </v-card>
@@ -84,6 +107,10 @@ const DeleteTeam = (id) => {
 
 <script>
 export default {
-  dialog: false,
+  data() {
+    return {
+      dialog: false,
+    };
+  },
 };
 </script>
