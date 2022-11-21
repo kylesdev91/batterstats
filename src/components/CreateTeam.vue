@@ -50,7 +50,7 @@ const DeleteTeam = (id) => {
     </v-row>
   </v-card>
 
-  <div v-if="!user_input.create">
+  <div v-if="team_store.teams">
     <div v-for="user in team_store.teams" class="user">
       <v-simple-table fixed-header fill-height="330px" class="my-12">
         <thead>
