@@ -48,37 +48,42 @@ const DeleteTeam = (id) => {
         >Create</v-btn
       >
     </v-row>
-  </v-card>
+    <v-table>
+      <thead>
+        <tr>
+          <th class="text-left">Team</th>
+        </tr>
+      </thead>
+    </v-table>
 
-  <v-table>
-    <thead>
-      <tr>
-        <th class="text-left">Team</th>
-      </tr>
-    </thead>
-  </v-table>
-
-  <div v-if="team_store.teams">
-    <div v-for="user in team_store.teams" class="user">
-      <th v-if="user_input.create"></th>
-      <h2 align="left" class="mx-5">{{ user.team }}</h2>
-      <div class="text-center">
-        <v-row></v-row>
-        <v-btn
-          class="delete"
-          color="red"
-          variant="tonal"
-          value="Delete"
-          @click="DeleteTeam(user.id)"
-          >Delete</v-btn
-        >
+    <div v-if="team_store.teams">
+      <div v-for="user in team_store.teams" class="user">
+        <th v-if="user_input.create"></th>
+        <p align="left" class="mx-5">{{ user.team }}</p>
+        <div class="text-center">
+          <v-row></v-row>
+          <v-icon
+            class="delete"
+            color="red"
+            variant="tonal"
+            value="Delete"
+            @click="DeleteTeam(user.id)"
+            >mdi-delete
+          </v-icon>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="teams" v-else>
-    <div v-for="user in team_store.teamsByName" class="user">
-      <h3>{{ user.team }}</h3>
+    <div class="teams" v-else>
+      <div v-for="user in team_store.teamsByName" class="user">
+        <h3>{{ user.team }}</h3>
+      </div>
     </div>
-  </div>
+  </v-card>
 </template>
+
+<script>
+export default {
+  dialog: false,
+};
+</script>
