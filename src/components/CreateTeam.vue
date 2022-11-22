@@ -9,6 +9,7 @@ const team_input = ref({
 });
 
 const dialogDelete = ref(false);
+const idToBeDel = ref("")
 
 const CreateTeam = () => {
   if (!team_input.value.team) {
@@ -21,13 +22,16 @@ const CreateTeam = () => {
   };
 };
 
-const DeleteTeam = (id) => {
-  team_store.delete(id);
+const DeleteTeam = () => {
+  team_store.delete(idToBeDel.value);
+  dialogDelete.value = false
 };
 
-const LogTeam = () => {
-  console.log("here");
-};
+const showDialog = (id) => {
+  dialogDelete.value = true;
+  idToBeDel.value = id
+}
+
 </script>
 
 <template>
@@ -56,61 +60,47 @@ const LogTeam = () => {
       >
     </v-row>
 
-    <div v-if="team_store.teams">
+    <div v-if="team_store.teams.length > 0" class="mt-6">
       <v-table>
         <thead>
           <tr>
             <th class="text-left">Team</th>
+            <th class="text-left">Actions</th>
           </tr>
         </thead>
+        <tbody>
+          <tr v-for="team in team_store.teams" :key="team.id">
+            <td>{{ team.team }}</td>
+            <td>
+              <v-icon
+                class="delete"
+                color="red"
+                variant="tonal"
+                value="Delete"
+                @click="showDialog(team.id)"
+                >mdi-delete
+              </v-icon>
+            </td>
+          </tr>
+        </tbody>
       </v-table>
-      <div v-for="team in team_store.teams" class="team">
-        <th v-if="team_input.create"></th>
-        <p align="left" class="mx-5">{{ team.team }}</p>
-        <div class="text-center">
-          <v-row></v-row>
-          <div class="text-center">
-            <v-icon
-              class="delete"
-              color="red"
-              variant="tonal"
-              value="Delete"
-              @click="dialog = true"
-              >mdi-delete
-            </v-icon>
 
-            <v-dialog v-model="dialog">
-              <v-card>
-                <v-card-text>
-                  Are you sure you want to delete team? This change cannot be
-                  undone.
-                </v-card-text>
+      <v-dialog v-model="dialogDelete" max-width="344" class="mx-auto">
+        <v-card>
+          <v-card-text>
+            Are you sure you want to delete team? This change cannot be undone.
+          </v-card-text>
 
-                <v-card-actions>
-                  <v-btn color="blue" block @click="dialog = false"
-                    >Cancel</v-btn
-                  >
-                </v-card-actions>
-                <v-card-actions>
-                  <v-btn color="error" block @click="DeleteTeam(team.id)"
-                    >Delete</v-btn
-                  >
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </div>
-        </div>
-      </div>
+          <v-card-actions>
+            <v-btn color="blue" block @click="dialogDelete = false">Cancel</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn color="error" block @click="DeleteTeam"
+              >Delete</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </v-card>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      dialog: false,
-    };
-  },
-};
-</script>
